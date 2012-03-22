@@ -1,0 +1,1 @@
+Hadoop project for DevoxxFr 2012
