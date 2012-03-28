@@ -27,6 +27,7 @@
     }
     function onClose(evt) {
         writeToScreen("DISCONNECTED");
+        websocket.open();
     }
     function onMessage(evt) {
         writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data+'</span>');
