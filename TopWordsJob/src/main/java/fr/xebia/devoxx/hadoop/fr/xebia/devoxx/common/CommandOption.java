@@ -1,9 +1,10 @@
-package fr.xebia.devoxx.hadoop.sample;
+package fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common;
 
 import org.kohsuke.args4j.Option;
 
 public class CommandOption {
 
+    public static final String USE_CASE = "useCase";
     public static final String WAIT_FOR_COMPLETION = "waitForCompletion";
     public static final String DATE_FROM = "dateFrom";
     public static final String DATE_TO = "dateTo";
@@ -11,6 +12,7 @@ public class CommandOption {
     public static final String OUTPUT_PATH = "outputPath";
 
 
+    private String useCase;
     private boolean waitForCompletion = true;
     private String dateFrom;
     private String dateTo;
@@ -51,6 +53,15 @@ public class CommandOption {
     @Option(name = "-" + DATE_FROM, required = false, usage = "dateFrom (yyyy-MM-dd HH:mm)")
     public void setDateFrom(String dateFrom) {
         this.dateFrom = dateFrom;
+    }
+
+    public String getUseCase() {
+        return useCase;
+    }
+
+    @Option(name = "-" + USE_CASE, required = true, usage = "use case")
+    public void setUseCase(String useCase) {
+        this.useCase = useCase;
     }
 
     public boolean isWaitForCompletion() {

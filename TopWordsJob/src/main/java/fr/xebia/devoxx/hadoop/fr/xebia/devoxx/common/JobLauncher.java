@@ -1,5 +1,7 @@
-package fr.xebia.devoxx.hadoop.sample;
+package fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common;
 
+import fr.xebia.devoxx.hadoop.mostRt.MostRtLaunch;
+import fr.xebia.devoxx.hadoop.sample.SampleLaunch;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.util.Tool;
@@ -18,6 +20,7 @@ public class JobLauncher extends Configured implements Tool {
         parser.parseArgument(otherArgs);
 
         // Transfert commandLine -> configuration
+        configuration.set(CommandOption.USE_CASE, cmdLineOptions.getUseCase());
         configuration.set(CommandOption.WAIT_FOR_COMPLETION, String.valueOf(cmdLineOptions.isWaitForCompletion()));
 
         if (cmdLineOptions.getDateFrom() != null) {
@@ -32,7 +35,14 @@ public class JobLauncher extends Configured implements Tool {
         configuration.set(CommandOption.OUTPUT_PATH, cmdLineOptions.getOutputPath());
 
 
-        Tool tool = new SampleLaunch();
+        Tool tool = null;
+        if (cmdLineOptions.getUseCase().equals(SampleLaunch.USE_CASE)) {
+            tool = new SampleLaunch();
+        } else if (cmdLineOptions.getUseCase().equals(MostRtLaunch.USE_CASE)) {
+            tool = new MostRtLaunch();
+        } else {
+            // TODO Exception
+        }
 
         ToolRunner.run(configuration, tool, otherArgs);
 

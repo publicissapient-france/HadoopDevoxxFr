@@ -1,6 +1,6 @@
 package fr.xebia.devoxx.hadoop.sample;
 
-import fr.xebia.devoxx.hadoop.sample.output.PushServerFormat;
+import fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common.output.PushServerFormat;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;

@@ -1,4 +1,4 @@
-package fr.xebia.devoxx.hadoop.sample;
+package fr.xebia.devoxx.hadoop.mostRt;
 
 import fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common.CommandOption;
 import org.apache.hadoop.conf.Configuration;
@@ -14,10 +14,10 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 
-public class SampleLaunch extends Configured implements Tool {
+public class MostRtLaunch extends Configured implements Tool {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SampleLaunch.class);
-    public static final String USE_CASE = "sample";
+    private static final Logger LOG = LoggerFactory.getLogger(MostRtLaunch.class);
+    public static final String USE_CASE = "mostRt";
 
     public int run(String[] args) throws Exception {
         // Configuration processed by ToolRunner
@@ -28,17 +28,27 @@ public class SampleLaunch extends Configured implements Tool {
         dfs.delete(new Path(conf.get(CommandOption.OUTPUT_PATH)), true);
 
         Properties props = new Properties();
-        props.load(SampleLaunch.class.getResourceAsStream("/common.properties"));
+        props.load(MostRtLaunch.class.getResourceAsStream("/common.properties"));
         conf.set("pushServerUrl", props.getProperty("pushServerUrl"));
 
-        Job job = new SampleJob(conf);
+        Job job = new CountRtJob(conf);
 
-        job.setJobName("Sample job");
+        job.setJobName("Most RT job");
 
         FileInputFormat.addInputPath(job, new Path(conf.get(CommandOption.INPUT_PATH)));
         FileOutputFormat.setOutputPath(job, new Path(conf.get(CommandOption.OUTPUT_PATH)));
 
-        job.waitForCompletion(Boolean.parseBoolean(conf.get(CommandOption.WAIT_FOR_COMPLETION)));
+        job.waitForCompletion(true);
+
+        Job secondJob = new MaxRtJob(conf);
+
+        secondJob.setJobName("Max RT job");
+
+        FileInputFormat.addInputPath(secondJob, new Path(conf.get(CommandOption.OUTPUT_PATH)));
+        FileOutputFormat.setOutputPath(secondJob, new Path(conf.get(CommandOption.OUTPUT_PATH)));
+
+        secondJob.waitForCompletion(Boolean.parseBoolean(conf.get(CommandOption.WAIT_FOR_COMPLETION)));
+
 
         return 0;
     }

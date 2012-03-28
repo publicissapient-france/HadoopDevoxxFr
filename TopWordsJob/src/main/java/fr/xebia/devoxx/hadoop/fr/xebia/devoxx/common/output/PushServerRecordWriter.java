@@ -1,19 +1,22 @@
-package fr.xebia.devoxx.hadoop.sample.output;
+package fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common.output;
 
+import fr.xebia.devoxx.hadoop.mostRt.model.TwitterStreamCount;
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.io.LongWritable;
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.RecordWriter;
 import org.apache.hadoop.mapreduce.TaskAttemptContext;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.codehaus.jackson.Version;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.module.SimpleModule;
 
 import java.io.IOException;
+import java.io.StringWriter;
 
 
-public class PushServerRecordWriter extends RecordWriter<LongWritable, Text> {
+public class PushServerRecordWriter extends RecordWriter<Object, Object> {
     private String pushServerUrl;
 
     public PushServerRecordWriter(Configuration configuration) {
@@ -22,11 +25,21 @@ public class PushServerRecordWriter extends RecordWriter<LongWritable, Text> {
 
 
     @Override
-    public void write(LongWritable key, Text value) throws IOException, InterruptedException {
+    public void write(Object key, Object value) throws IOException, InterruptedException {
         DefaultHttpClient httpClient = new DefaultHttpClient();
         HttpPost postRequest = new HttpPost(pushServerUrl);
 
-        StringEntity input = new StringEntity("{\"value\":\"" + value.toString() + "\"}");
+
+        ObjectMapper mapper = new ObjectMapper();
+        SimpleModule hadoopModule = new SimpleModule("HadoopModule", new Version(1, 0, 0, null));
+        hadoopModule.addSerializer(TwitterStreamCount.class, new TwitterStreamCountSerializer());
+        mapper.registerModule(hadoopModule);
+        StringWriter out = new StringWriter();
+        mapper.writeValue(out, key);
+
+        System.out.println(out.toString());
+
+        StringEntity input = new StringEntity(out.toString());
 
         input.setContentType("application/json");
         postRequest.setEntity(input);
@@ -40,6 +53,6 @@ public class PushServerRecordWriter extends RecordWriter<LongWritable, Text> {
 
     @Override
     public void close(TaskAttemptContext taskAttemptContext) throws IOException, InterruptedException {
-        //To change body of implemented methods use File | Settings | File Templates.
+        // TODO
     }
 }

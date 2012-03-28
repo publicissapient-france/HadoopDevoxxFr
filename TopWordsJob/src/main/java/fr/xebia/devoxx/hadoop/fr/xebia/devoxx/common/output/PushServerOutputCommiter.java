@@ -1,4 +1,4 @@
-package fr.xebia.devoxx.hadoop.sample.output;
+package fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common.output;
 
 import org.apache.hadoop.mapreduce.JobContext;
 import org.apache.hadoop.mapreduce.OutputCommitter;
