@@ -35,9 +35,9 @@ public class WebSocketServerTest {
         try {
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost postRequest = new HttpPost(
-                    "http://localhost:8081/hadoop");
+                    "http://localhost:8082/hadoop");
 
-            StringEntity input = new StringEntity("{\"name\":\"toto\"}");
+            StringEntity input = new StringEntity(" {\"count\":1,\"user\":\"@Maitre_Eola\",\"message\":\" On trouvera RT @Bip_Ed: Le suspect du meurtre d'Yssingeaux n'a pas d'antÃ©cÃ©dents judiciaires. Aucune exploitation Ã©lec ...\"}");
 
             input.setContentType("application/json");
             postRequest.setEntity(input);

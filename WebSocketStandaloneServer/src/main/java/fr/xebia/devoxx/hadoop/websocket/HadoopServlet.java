@@ -23,6 +23,9 @@ public class HadoopServlet extends HttpServlet {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        System.out.println("Message received on HadoopServlet : " + content.toString());
+
         response.setContentType("text/x-json;charset=UTF-8");
         response.setHeader("Cache-Control", "no-cache");
         response.getWriter().write("{status : \"Message received and forwarded\"}");

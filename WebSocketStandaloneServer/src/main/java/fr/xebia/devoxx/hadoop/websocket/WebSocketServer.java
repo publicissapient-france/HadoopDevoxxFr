@@ -4,9 +4,14 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 
+import java.io.IOException;
+import java.util.Properties;
+
 public class WebSocketServer implements Runnable {
-    public static final int HTTP_PORT = 8080;
-    public static final int SOCKETS_PORT = 8081;
+    public static final int STATIC_PORT = 8080;
+    public static final int STD_PORT = 8082;
+    public static final int SOCKETS_PORT = 8090;
+    private Server staticServer;
     private Server webServer;
     private Server socketsServer;
 
@@ -18,6 +23,7 @@ public class WebSocketServer implements Runnable {
         configureServer();
 
         try {
+            staticServer.start();
             webServer.start();
             socketsServer.start();
         } catch (Exception e) {
@@ -25,6 +31,7 @@ public class WebSocketServer implements Runnable {
         }
 
         try {
+            staticServer.join();
             webServer.join();
             socketsServer.join();
         } catch (InterruptedException e) {
@@ -36,6 +43,7 @@ public class WebSocketServer implements Runnable {
 
     public void shutdown() {
         try {
+            staticServer.stop();
             webServer.stop();
             socketsServer.stop();
         } catch (Exception e) {
@@ -44,17 +52,28 @@ public class WebSocketServer implements Runnable {
     }
 
     public void configureServer() {
-        webServer = new Server(HTTP_PORT);
+        staticServer = new Server(STATIC_PORT);
+        webServer = new Server(STD_PORT);
         socketsServer = new Server(SOCKETS_PORT);
 
-        ResourceHandler staticResourceHandler = new ResourceHandler();
-        staticResourceHandler.setResourceBase("src/main/webapp");
-        staticResourceHandler.setWelcomeFiles(new String[]{"index.html"});
+        ServletContextHandler contextHandlerStd = new ServletContextHandler(webServer, "/", false, false);
+        contextHandlerStd.addServlet("org.eclipse.jetty.servlet.DefaultServlet", "/*");
+        contextHandlerStd.addServlet("fr.xebia.devoxx.hadoop.websocket.HadoopServlet", "/hadoop");
 
-        webServer.setHandler(staticResourceHandler);
+        ServletContextHandler contextHandlerSocket = new ServletContextHandler(socketsServer, "/", false, false);
+        contextHandlerSocket.addServlet("fr.xebia.devoxx.hadoop.websocket.ClientServlet", "/");
 
-        ServletContextHandler contextHandler = new ServletContextHandler(socketsServer, "/", false, false);
-        contextHandler.addServlet("fr.xebia.devoxx.hadoop.websocket.HadoopServlet", "/hadoop");
-        contextHandler.addServlet("fr.xebia.devoxx.hadoop.websocket.ClientServlet", "/");
+        Properties props = new Properties();
+        try {
+            props.load(WebSocketServer.class.getResourceAsStream("/http.properties"));
+            ResourceHandler staticResourceHandler = new ResourceHandler();
+            staticResourceHandler.setResourceBase((String) props.get("webappFilesPath"));
+            staticResourceHandler.setDirectoriesListed(true);
+            staticResourceHandler.setWelcomeFiles(new String[]{"indexOld.html"});
+            staticServer.setHandler(staticResourceHandler);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

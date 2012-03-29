@@ -21,14 +21,14 @@ public class ClientServlet extends WebSocketServlet {
     }
 
     private class ClientFeedWebSocket implements WebSocket.OnTextMessage {
-        private Connection connection;
-
         public void onOpen(Connection connection) {
-            this.connection = connection;
             webSockets.add(this);
-            while(true){
+            while (true) {
                 try {
-                    connection.sendMessage(MESSAGE_QUEUE.take());
+                    String message = MESSAGE_QUEUE.take();
+                    System.out.println("Message forwarded by ClientServlet : " + message);
+                    connection.sendMessage(message);
+                    //Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -38,7 +38,7 @@ public class ClientServlet extends WebSocketServlet {
         }
 
         public void onMessage(String message) {
-            // Do nothing
+            System.out.println("Message received on ClientServlet : " + message);
         }
 
         public void onClose(int closeCode, String message) {
