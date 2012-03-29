@@ -3,6 +3,7 @@ package fr.xebia.devoxx.hadoop.mostRt;
 import fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common.output.PushServerFormat;
 import fr.xebia.devoxx.hadoop.mostRt.model.DumbPartitioner;
 import fr.xebia.devoxx.hadoop.mostRt.model.GroupAllComparator;
+import fr.xebia.devoxx.hadoop.mostRt.model.SortComparator;
 import fr.xebia.devoxx.hadoop.mostRt.model.TwitterStreamCount;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.NullWritable;
@@ -29,6 +30,7 @@ public class MaxRtJob extends Job {
 
         this.setPartitionerClass(DumbPartitioner.class);
         this.setGroupingComparatorClass(GroupAllComparator.class);
+        this.setSortComparatorClass(SortComparator.class);
 
         this.setJarByClass(MaxRtJob.class);
     }
