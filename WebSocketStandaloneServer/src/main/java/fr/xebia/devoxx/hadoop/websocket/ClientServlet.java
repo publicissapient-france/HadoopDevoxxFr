@@ -24,15 +24,20 @@ public class ClientServlet extends WebSocketServlet {
         public void onOpen(Connection connection) {
             webSockets.add(this);
             while (true) {
+                String message = null;
                 try {
-                    String message = MESSAGE_QUEUE.take();
-                    System.out.println("Message forwarded by ClientServlet : " + message);
-                    connection.sendMessage(message);
-                    //Thread.sleep(5000);
+                    message = MESSAGE_QUEUE.take();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                }
+                try {
+                    System.out.println("Message forwarded by ClientServlet : " + message);
+                    connection.sendMessage(message);
                 } catch (IOException e) {
                     e.printStackTrace();
+                    System.out.println("Cleanning the mess");
+                    webSockets.remove(this);
+                    connection.close();
                 }
             }
         }
