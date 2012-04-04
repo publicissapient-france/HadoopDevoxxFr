@@ -34,7 +34,6 @@ public class JobLauncher extends Configured implements Tool {
         configuration.set(CommandOption.INPUT_PATH, cmdLineOptions.getInputPath());
         configuration.set(CommandOption.OUTPUT_PATH, cmdLineOptions.getOutputPath());
 
-
         Tool tool = null;
         if (cmdLineOptions.getUseCase().equals(SampleLaunch.USE_CASE)) {
             tool = new SampleLaunch();
