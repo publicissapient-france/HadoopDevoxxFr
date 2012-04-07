@@ -1,6 +1,6 @@
 package fr.xebia.devoxx.hadoop.mostRt;
 
-import fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common.output.PushServerFormat;
+import fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common.output.MultiFormat;
 import fr.xebia.devoxx.hadoop.mostRt.model.DumbPartitioner;
 import fr.xebia.devoxx.hadoop.mostRt.model.GroupAllComparator;
 import fr.xebia.devoxx.hadoop.mostRt.model.SortComparator;
@@ -26,7 +26,7 @@ public class MaxRtJob extends Job {
         this.setOutputValueClass(NullWritable.class);
 
         this.setInputFormatClass(SequenceFileInputFormat.class);
-        this.setOutputFormatClass(PushServerFormat.class);
+        this.setOutputFormatClass(MultiFormat.class);
 
         this.setPartitionerClass(DumbPartitioner.class);
         this.setGroupingComparatorClass(GroupAllComparator.class);

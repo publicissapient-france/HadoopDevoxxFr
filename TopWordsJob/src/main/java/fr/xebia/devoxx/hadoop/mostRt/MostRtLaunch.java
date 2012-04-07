@@ -31,6 +31,14 @@ public class MostRtLaunch extends Configured implements Tool {
         props.load(MostRtLaunch.class.getResourceAsStream("/common.properties"));
         conf.set("pushServerUrl", props.getProperty("pushServerUrl"));
 
+        conf.set("mongo.host", props.getProperty("mongo.host"));
+        conf.set("mongo.port", props.getProperty("mongo.port"));
+        conf.set("mongo.database", props.getProperty("mongo.database"));
+        conf.set("mongo.collection", props.getProperty("mongo.collection"));
+        conf.set("mongo.user", props.getProperty("mongo.user"));
+        conf.set("mongo.password", props.getProperty("mongo.password"));
+
+
         Job job = new CountRtJob(conf);
 
         job.setJobName("Most RT job");
