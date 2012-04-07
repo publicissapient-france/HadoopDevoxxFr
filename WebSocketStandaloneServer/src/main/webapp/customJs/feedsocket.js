@@ -5,7 +5,7 @@ $(function() {
      if(host.indexOf(':')>0){
         host = host.substring(0, host.indexOf(':'));
      }
-     var wsHost = "ws://" + host + ":8090/";
+     var wsHost = "ws://" + host + ":8090/admin/client";
 
     try{
         socket = new WebSocket(wsHost);
@@ -17,19 +17,23 @@ $(function() {
        	    console.log("Socket Status: "+socket.readyState+' (open)');
         }
         socket.onmessage = function(message){
-       	    console.log("Received: " + message.data);
-			var alert = eval('(' + message.data + ')');
+        console.log("Received: " + message.data);
+        if(previousAlert!=null) {
+		console.log("Previous: " + previousAlert.data);
+	}
+            
+	var alert = eval('(' + message.data + ')');
 
-			$('#twittsLeader').fadeOut("slow", function () {
-                $('#twittsLeader').empty();
-                $( "#twittTemplate" ).tmpl(alert).appendTo('#twittsLeader');
+	$('#twittsLeader').fadeOut("slow", function () {
+       		$('#twittsLeader').empty();
+        	$( "#twittTemplate" ).tmpl(alert).appendTo('#twittsLeader');
                 $('#twittsLeader').fadeIn("slow", function () {
-                if(previousAlert != null)
-                    $( "#twittTemplate" ).tmpl( previousAlert ).prependTo('#twitts');
-                    $('#twitts div:first-child').fadeIn("slow");
-                });
-            });
-            previousAlert = alert;
+                	if(previousAlert != null)
+                    		$( "#twittTemplate" ).tmpl( previousAlert ).prependTo('#twitts');
+                    		$('#twitts div:first-child').fadeIn("slow");
+                	});
+            	});
+        	previousAlert = alert;
         }
         socket.onclose = function(){
             console.log("Socket Status: "+socket.readyState+' (Closed)');
