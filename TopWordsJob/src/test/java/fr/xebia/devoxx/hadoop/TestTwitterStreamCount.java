@@ -45,7 +45,7 @@ public class TestTwitterStreamCount {
         StringWriter out = new StringWriter();
         mapper.writeValue(out, twitterStreamCount);
 
-        assertEquals("{\"count\":1,\"user\":\"@itel\",\"message\":\"Réseau mobile : Orange menace Free http://t.co/P1d0IuKu)\"}", out.toString());
+        assertEquals("{\"count\":1,\"user\":\"@itel\",\"message\":\"Réseau mobile : Orange menace Free http://t.co/P1d0IuKu)\",\"job\":\"mostRt\"}", out.toString());
 
     }
 }
