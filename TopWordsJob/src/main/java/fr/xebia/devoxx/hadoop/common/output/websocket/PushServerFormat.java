@@ -1,13 +1,13 @@
-package fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common.output;
+package fr.xebia.devoxx.hadoop.common.output.websocket;
 
 import org.apache.hadoop.mapreduce.*;
 
 import java.io.IOException;
 
-public class MultiFormat extends OutputFormat {
+public class PushServerFormat extends OutputFormat {
     @Override
     public RecordWriter getRecordWriter(TaskAttemptContext context) throws IOException, InterruptedException {
-       return new MultiWriter(context.getConfiguration());
+       return new PushServerRecordWriter(context.getConfiguration());
     }
 
     @Override
@@ -17,6 +17,6 @@ public class MultiFormat extends OutputFormat {
 
     @Override
     public OutputCommitter getOutputCommitter(TaskAttemptContext context) throws IOException, InterruptedException {
-        return new MultiCommiter();
+        return new PushServerOutputCommiter();
     }
 }

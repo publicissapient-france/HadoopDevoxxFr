@@ -1,5 +1,7 @@
-package fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common.output;
+package fr.xebia.devoxx.hadoop.common.output.websocket;
 
+import fr.xebia.devoxx.hadoop.common.output.utils.TwitterStreamCountSerializer;
+import fr.xebia.devoxx.hadoop.common.output.utils.TwitterWordCountSerializer;
 import fr.xebia.devoxx.hadoop.mostRt.model.TwitterStreamCount;
 import fr.xebia.devoxx.hadoop.occurence.model.TwitterWordCount;
 import org.apache.hadoop.conf.Configuration;

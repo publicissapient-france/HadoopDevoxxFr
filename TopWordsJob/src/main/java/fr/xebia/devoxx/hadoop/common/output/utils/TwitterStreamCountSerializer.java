@@ -1,4 +1,4 @@
-package fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common.output;
+package fr.xebia.devoxx.hadoop.common.output.utils;
 
 import fr.xebia.devoxx.hadoop.mostRt.model.TwitterStreamCount;
 import org.codehaus.jackson.JsonGenerator;

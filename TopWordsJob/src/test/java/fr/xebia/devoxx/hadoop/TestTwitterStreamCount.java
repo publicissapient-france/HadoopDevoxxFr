@@ -1,7 +1,7 @@
 package fr.xebia.devoxx.hadoop;
 
 
-import fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common.output.TwitterStreamCountSerializer;
+import fr.xebia.devoxx.hadoop.common.output.utils.TwitterStreamCountSerializer;
 import fr.xebia.devoxx.hadoop.mostRt.model.TwitterStreamCount;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;

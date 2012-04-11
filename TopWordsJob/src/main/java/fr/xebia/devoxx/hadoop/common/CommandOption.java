@@ -1,4 +1,4 @@
-package fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common;
+package fr.xebia.devoxx.hadoop.common;
 
 import org.kohsuke.args4j.Option;
 

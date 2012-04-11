@@ -1,6 +1,6 @@
 package fr.xebia.devoxx.hadoop.mostRt;
 
-import fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common.output.MultiFormat;
+import fr.xebia.devoxx.hadoop.common.output.MultiFormat;
 import fr.xebia.devoxx.hadoop.mostRt.model.DumbPartitioner;
 import fr.xebia.devoxx.hadoop.mostRt.model.GroupAllComparator;
 import fr.xebia.devoxx.hadoop.mostRt.model.SortComparator;

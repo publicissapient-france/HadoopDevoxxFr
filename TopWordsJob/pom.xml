@@ -83,7 +83,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common.JobLauncher</mainClass>
+                            <mainClass>fr.xebia.devoxx.hadoop.common.JobLauncher</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

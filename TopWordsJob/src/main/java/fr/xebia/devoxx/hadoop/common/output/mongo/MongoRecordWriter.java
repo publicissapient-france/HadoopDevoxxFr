@@ -1,4 +1,4 @@
-package fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common.output;
+package fr.xebia.devoxx.hadoop.common.output.mongo;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
@@ -34,7 +34,6 @@ public class MongoRecordWriter extends RecordWriter {
         String user = configuration.get("mongo.user");
         String password = configuration.get("mongo.password");
         try {
-            System.out.println("Logging to " + host + ":" + port + " with " + user);
             mongodb = new Mongo(host, port);
         } catch (UnknownHostException uhe) {
             cleanup();

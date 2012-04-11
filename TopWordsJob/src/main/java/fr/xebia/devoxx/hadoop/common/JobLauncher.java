@@ -1,4 +1,4 @@
-package fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common;
+package fr.xebia.devoxx.hadoop.common;
 
 import fr.xebia.devoxx.hadoop.mostRt.MostRtLaunch;
 import fr.xebia.devoxx.hadoop.occurence.OccurenceLaunch;

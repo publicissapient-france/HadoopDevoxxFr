@@ -1,7 +1,7 @@
 package fr.xebia.devoxx.hadoop.occurence;
 
 
-import fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common.CommandOption;
+import fr.xebia.devoxx.hadoop.common.CommandOption;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.FileSystem;
@@ -26,7 +26,6 @@ public class OccurenceLaunch extends Configured implements Tool {
 
         // Initiliaze state
         FileSystem dfs = FileSystem.get(conf);
-        dfs.delete(new Path(conf.get(CommandOption.OUTPUT_PATH)), true);
         dfs.delete(new Path(conf.get(CommandOption.OUTPUT_PATH)), true);
 
         Properties props = new Properties();

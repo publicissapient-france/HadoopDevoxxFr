@@ -1,13 +1,15 @@
-package fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common.output;
+package fr.xebia.devoxx.hadoop.common.output.mongo;
 
 import org.apache.hadoop.mapreduce.*;
 
 import java.io.IOException;
 
-public class PushServerFormat extends OutputFormat {
+
+public class MongoOutputFormat extends OutputFormat {
+
     @Override
     public RecordWriter getRecordWriter(TaskAttemptContext context) throws IOException, InterruptedException {
-       return new PushServerRecordWriter(context.getConfiguration());
+        return new MongoRecordWriter(context.getConfiguration());
     }
 
     @Override
@@ -17,6 +19,7 @@ public class PushServerFormat extends OutputFormat {
 
     @Override
     public OutputCommitter getOutputCommitter(TaskAttemptContext context) throws IOException, InterruptedException {
-        return new PushServerOutputCommiter();
+        return new MongoOutputCommiter();
     }
+
 }

@@ -1,6 +1,6 @@
 package fr.xebia.devoxx.hadoop;
 
-import fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common.output.TwitterWordCountSerializer;
+import fr.xebia.devoxx.hadoop.common.output.utils.TwitterWordCountSerializer;
 import fr.xebia.devoxx.hadoop.occurence.model.TwitterWordCount;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;

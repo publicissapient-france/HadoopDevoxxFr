@@ -1,5 +1,7 @@
-package fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common.output;
+package fr.xebia.devoxx.hadoop.common.output;
 
+import fr.xebia.devoxx.hadoop.common.output.mongo.MongoRecordWriter;
+import fr.xebia.devoxx.hadoop.common.output.websocket.PushServerRecordWriter;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.mapreduce.RecordWriter;
 import org.apache.hadoop.mapreduce.TaskAttemptContext;

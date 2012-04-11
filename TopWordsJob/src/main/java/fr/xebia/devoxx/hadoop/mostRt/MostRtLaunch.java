@@ -1,6 +1,6 @@
 package fr.xebia.devoxx.hadoop.mostRt;
 
-import fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common.CommandOption;
+import fr.xebia.devoxx.hadoop.common.CommandOption;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.FileSystem;
