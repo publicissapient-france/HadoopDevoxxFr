@@ -82,7 +82,7 @@ public class MongoRecordWriter extends RecordWriter {
             for (PropertyDescriptor pd : propertyDescriptorsKey) {
                 if (pd.getReadMethod() != null && !"class".equals(pd.getName())) {
                     nothingWrote = false;
-                    basicDBObject.put(pd.getReadMethod().getName(), pd.getReadMethod().invoke(key).toString());
+                    basicDBObject.put(pd.getName(), pd.getReadMethod().invoke(key).toString());
                 }
             }
             if (nothingWrote) {
@@ -96,7 +96,7 @@ public class MongoRecordWriter extends RecordWriter {
             for (PropertyDescriptor pd : propertyDescriptorsValue) {
                 if (pd.getReadMethod() != null && !"class".equals(pd.getName())) {
                     nothingWrote = false;
-                    basicDBObject.put(pd.getReadMethod().getName(), pd.getReadMethod().invoke(value).toString());
+                    basicDBObject.put(pd.getName(), pd.getReadMethod().invoke(value).toString());
                 }
             }
             if (nothingWrote) {
