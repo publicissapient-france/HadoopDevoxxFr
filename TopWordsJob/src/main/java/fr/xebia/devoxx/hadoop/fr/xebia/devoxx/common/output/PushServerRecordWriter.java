@@ -1,6 +1,7 @@
 package fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common.output;
 
 import fr.xebia.devoxx.hadoop.mostRt.model.TwitterStreamCount;
+import fr.xebia.devoxx.hadoop.occurence.model.TwitterWordCount;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.mapreduce.RecordWriter;
 import org.apache.hadoop.mapreduce.TaskAttemptContext;
@@ -33,6 +34,7 @@ public class PushServerRecordWriter extends RecordWriter<Object, Object> {
         ObjectMapper mapper = new ObjectMapper();
         SimpleModule hadoopModule = new SimpleModule("HadoopModule", new Version(1, 0, 0, null));
         hadoopModule.addSerializer(TwitterStreamCount.class, new TwitterStreamCountSerializer());
+        hadoopModule.addSerializer(TwitterWordCount.class, new TwitterWordCountSerializer());
         mapper.registerModule(hadoopModule);
         StringWriter out = new StringWriter();
         mapper.writeValue(out, key);

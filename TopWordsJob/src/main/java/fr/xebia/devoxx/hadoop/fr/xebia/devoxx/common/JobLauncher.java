@@ -1,6 +1,7 @@
 package fr.xebia.devoxx.hadoop.fr.xebia.devoxx.common;
 
 import fr.xebia.devoxx.hadoop.mostRt.MostRtLaunch;
+import fr.xebia.devoxx.hadoop.occurence.OccurenceLaunch;
 import fr.xebia.devoxx.hadoop.sample.SampleLaunch;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
@@ -39,6 +40,8 @@ public class JobLauncher extends Configured implements Tool {
             tool = new SampleLaunch();
         } else if (cmdLineOptions.getUseCase().equals(MostRtLaunch.USE_CASE)) {
             tool = new MostRtLaunch();
+        } else if (cmdLineOptions.getUseCase().equals(OccurenceLaunch.USE_CASE)) {
+            tool = new OccurenceLaunch();
         } else {
             // TODO Exception
         }

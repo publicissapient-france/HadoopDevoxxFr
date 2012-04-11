@@ -5,7 +5,7 @@ $(function() {
      if(host.indexOf(':')>0){
         host = host.substring(0, host.indexOf(':'));
      }
-     var wsHost = "ws://" + host + ":8090/";
+     var wsHost = "ws://" + host + ":8090/admin/client";
 
     try{
         socket = new WebSocket(wsHost);
@@ -17,19 +17,28 @@ $(function() {
        	    console.log("Socket Status: "+socket.readyState+' (open)');
         }
         socket.onmessage = function(message){
-       	    console.log("Received: " + message.data);
-			var alert = eval('(' + message.data + ')');
+            console.log("Received: " + message.data);
+            if (previousAlert != null) {
+                console.log("Previous: " + previousAlert.data);
+            }
 
-			$('#twittsLeader').fadeOut("slow", function () {
-                $('#twittsLeader').empty();
-                $( "#twittTemplate" ).tmpl(alert).appendTo('#twittsLeader');
-                $('#twittsLeader').fadeIn("slow", function () {
-                if(previousAlert != null)
-                    $( "#twittTemplate" ).tmpl( previousAlert ).prependTo('#twitts');
-                    $('#twitts div:first-child').fadeIn("slow");
+            var alert = eval('(' + message.data + ')');
+
+            if (alert.job === "occurence") {
+                plotTopWords(alert);
+            } else {
+                $('#twittsLeader').fadeOut("slow", function () {
+                    $('#twittsLeader').empty();
+                    $("#twittTemplate").tmpl(alert).appendTo('#twittsLeader');
+                    $('#twittsLeader').fadeIn("slow", function () {
+                        if (previousAlert != null)
+                            $("#twittTemplate").tmpl(previousAlert).prependTo('#twitts');
+                        $('#twitts div:first-child').fadeIn("slow");
+                    });
                 });
-            });
-            previousAlert = alert;
+                previousAlert = alert;
+            }
+
         }
         socket.onclose = function(){
             console.log("Socket Status: "+socket.readyState+' (Closed)');
@@ -39,6 +48,59 @@ $(function() {
        console.log("Error"+exception);
     }
 }
+
+    var plotData = [];
+    var plot;
+    var MAX_TOP_WORD = 10;
+
+    var updatePlotData = function(message) {
+        if (plotData.length < MAX_TOP_WORD) {
+            plotData.push([message.word, message.count]);
+        } else {
+            var dataAlreadyPresent = _(plotData).find(function(item) {
+                return item[0] === message.word;
+            });
+
+            if (dataAlreadyPresent !== undefined) {
+                dataAlreadyPresent[1] = message.count;
+            } else {
+                var dataWithMinOccurence = _(plotData).min(function(item) {
+                    return item[1];
+                });
+
+                if (dataWithMinOccurence !== undefined && message.count > dataWithMinOccurence[1]) {
+                    dataWithMinOccurence[0] = message.word;
+                    dataWithMinOccurence[1] = message.count;
+                }
+            }
+        }
+    };
+
+    var plotTopWords = function(message) {
+        updatePlotData(message);
+
+        if (plot !== undefined) {
+            plot.destroy();
+        }
+
+        plot = $.jqplot('topWords', [plotData], {
+            series:[
+                {renderer:$.jqplot.BarRenderer}
+            ],
+            axesDefaults: {
+                tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+                tickOptions: {
+                    angle: -30,
+                    fontSize: '11pt'
+                }
+            },
+            axes: {
+                xaxis: {
+                    renderer: $.jqplot.CategoryAxisRenderer
+                }
+            }
+        });
+    };
 
     var socket;
     var previousAlert;

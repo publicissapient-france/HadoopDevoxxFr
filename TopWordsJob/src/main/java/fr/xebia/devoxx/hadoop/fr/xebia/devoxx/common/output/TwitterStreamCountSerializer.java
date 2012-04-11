@@ -24,6 +24,8 @@ public class TwitterStreamCountSerializer extends JsonSerializer<TwitterStreamCo
         jsonGenerator.writeString(twitterStreamCount.getUser().toString());
         jsonGenerator.writeFieldName("message");
         jsonGenerator.writeString(twitterStreamCount.getMessage().toString());
+        jsonGenerator.writeFieldName("job");
+        jsonGenerator.writeString("mostRt");
         jsonGenerator.writeEndObject();
     }
 }
