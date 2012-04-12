@@ -18,13 +18,17 @@ public class HadoopServlet extends HttpServlet {
         while ((len = reader.read(buf, 0, buf.length)) != -1) {
             content.append(buf, 0, len);
         }
-        try {
-            ClientServlet.MESSAGE_QUEUE.put(content.toString());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         System.out.println("Message received on HadoopServlet : " + content.toString());
+
+        int clientCount = 0;
+
+        for (ClientServlet.ClientFeedWebSocket webSocket : ClientServlet.webSockets) {
+            webSocket.connection.sendMessage(content.toString());
+            clientCount++;
+        }
+
+        System.out.println("Forwarded to " + clientCount + " client(s)");
 
         response.setContentType("text/x-json;charset=UTF-8");
         response.setHeader("Cache-Control", "no-cache");

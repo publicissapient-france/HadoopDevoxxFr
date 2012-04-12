@@ -1,71 +1,109 @@
 <html>
-<head> 
-<meta charset="utf-8"> 
-<title>Hadoop at DevoxxFr</title> 
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <head>
+        <meta charset="utf-8">
+        <title>Hadoop at DevoxxFr</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Le styles --> 
-<link href="bootstrap/css/bootstrap.css" rel="stylesheet"> 
-<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet"> 
+        <!-- Le styles -->
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0-rc.2/jquery.mobile-1.1.0-rc.2.min.css"/>
+        <link rel="stylesheet" href="http://jquerymobile.com/demos/1.1.0-rc.2/docs/_assets/css/jqm-docs.css"/>
+        <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 
-<!--[if lt IE 9]>
-<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]--> 
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
 
-<style>
-body {
-margin-top: 60px;
-}
-</style>
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
 
-</head> 
-<body>
-<div class="navbar navbar-fixed-top"> 
-<div class="navbar-inner"> 
-<div class="container"> 
-<a class="brand" href="./index.html">Flume, Hadoop, Websockets and HTML5 in action</a>
-</div>
-</div>
-</div>
-<img src="img/twitter.png" width="200"/>
-<div class="container">
-	<div id="twittsLeader">
-		<!-- Append here -->
-	</div>
-    <div id="twitts">
-		<!-- Append here -->
-	</div>
-    <div id="topWords">
-        <!-- Append here -->
-    </div>
-</div>
+        <style>
+            body {
+            margin-top: 60px;
+            }
+        </style>
+    </head>
+    <body>
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-<script type="text/javascript" src="customJs/feedsocket.js"></script>
-<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
-<script type="text/javascript" src="js/jqplot/jquery.jqplot.min.js"></script>
-<script type="text/javascript" src="js/jqplot/jqplot.barRenderer.min.js"></script>
-<script type="text/javascript" src="js/jqplot/jqplot.canvasTextRenderer.min.js"></script>
-<script type="text/javascript" src="js/jqplot/jqplot.canvasAxisTickRenderer.min.js"></script>
-<script type="text/javascript" src="js/jqplot/jqplot.categoryAxisRenderer.min.js"></script>
-<script type="text/javascript" src="js/underscore.js"></script>
+        <div data-role="page" class="type-home">
+            <div data-role="content">
 
-<script id="twittTemplate" type="text/x-jquery-tmpl">
-    <div class="row">
-		<div class="span5 offset3 wellTwitt">
-		    <div class="spanMini">
-		        <img src="https://api.twitter.com/1/users/profile_image?screen_name=${user}"/>
-		    </div>
-		    <div class="spanMessage">
-		        <label>${user}</label>
-		        ${message}
-		    </div>
-		    <div class="spanMiniRt">
-			    &nbsp;<br/><b>${count}</b><br/>&nbsp;
-		    </div>
-		</div>
-	</div>
-</script>
+                <div class="content-secondary">
 
-</body>
+                    <div id="jqm-homeheader">
+                        <h1 id="jqm-logo"><img src="img/logo.png" alt="jQuery Mobile Framework" /></h1>
+                        <p>Flume, Hadoop, Websockets and HTML5 in action</p>
+                    </div>
+
+
+                    <p class="intro"><strong>Description</strong>Page rafraichie automatiquement via les Websockets. Si votre navigateur ne les supporte pas, rafraichissez manuellement en cliquant ici</p>
+
+
+
+                </div>
+
+                <div class="content-primary">
+                    <ul data-role="listview" data-inset="true" data-theme="c" data-divider-theme="f" id="twittsLeader">
+                        <li data-role="list-divider" id="twittsLeaderLabel">Twitter leaders - Most RT in last 10 minutes</li>
+                        <!--<div  id="twittsLeader"></div>-->
+                    </ul>
+
+                    <nav>
+                        <ul data-role="listview" data-inset="true" data-theme="c" data-divider-theme="b" id="twittshistory">
+                            <li data-role="list-divider"id="historyLabel" >History</li>
+                            <!--<div id="twitts"></div>-->
+                        </ul>
+                    </nav>
+
+                </div>
+
+            </div>
+
+            <div data-role="footer" class="footer-docs" data-theme="c">
+                <p>&copy; 2012 - Pablo Lopez - Xebia</p>
+            </div>
+
+        </div>
+
+    </body>
+
+    <!-- TODO
+        <div id="topWords">
+            <!-- Append here - ->
+        </div>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script type="text/javascript" src="customJs/feedsocket.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
+    <script type="text/javascript" src="js/jqplot/jquery.jqplot.min.js"></script>
+    <script type="text/javascript" src="js/jqplot/jqplot.barRenderer.min.js"></script>
+    <script type="text/javascript" src="js/jqplot/jqplot.canvasTextRenderer.min.js"></script>
+    <script type="text/javascript" src="js/jqplot/jqplot.canvasAxisTickRenderer.min.js"></script>
+    <script type="text/javascript" src="js/jqplot/jqplot.categoryAxisRenderer.min.js"></script>
+    <script type="text/javascript" src="js/underscore.js"></script>
+     -->
+
+    <script id="twittTemplate" type="text/x-jquery-tmpl">
+        <li>
+            <img src="https://api.twitter.com/1/users/profile_image?screen_name=${user}" width="78px"/>
+            <h3 id="topTwittUser">${user}</h3>
+            <p id="topTwittMessage" style="white-space: normal;">${message}</p>
+            <span class="ui-li-count" id="topTwittCount" style="background-image:url('img/star.png') ; background-repeat:no-repeat;">${count}</span>
+        </li>
+    </script>
+
+    <script id="twittsLeaderLabelTmpl" type="text/x-jquery-tmpl">
+        <li data-role="list-divider" id="twittsLeaderLabel">Twitter leaders - Most RT in last 10 minutes</li>
+    </script>
+
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script type="text/javascript" src="customJs/jquery.tmpl.js"></script>
+    <script type="text/javascript" src="customJs/feedsocket.js"></script>
+    <script type="text/javascript">
+        $(document).bind("mobileinit", function(){
+            retryConnect();
+        } );
+    </script>
+    <script src="http://code.jquery.com/mobile/1.1.0-rc.2/jquery.mobile-1.1.0-rc.2.min.js"></script>
+
+
 </html>

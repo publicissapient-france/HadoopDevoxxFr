@@ -1,4 +1,3 @@
-$(function() {
 
  function connect(){
      var host = window.location.host;
@@ -18,27 +17,33 @@ $(function() {
         }
         socket.onmessage = function(message){
             console.log("Received: " + message.data);
-            if (previousAlert != null) {
-                console.log("Previous: " + previousAlert.data);
-            }
 
             var alert = eval('(' + message.data + ')');
 
             if (alert.job === "occurence") {
                 plotTopWords(alert);
             } else {
-                $('#twittsLeader').fadeOut("slow", function () {
-                    $('#twittsLeader').empty();
-                    $("#twittTemplate").tmpl(alert).appendTo('#twittsLeader');
-                    $('#twittsLeader').fadeIn("slow", function () {
-                        if (previousAlert != null)
-                            $("#twittTemplate").tmpl(previousAlert).prependTo('#twitts');
-                        $('#twitts div:first-child').fadeIn("slow");
-                    });
-                });
-                previousAlert = alert;
-            }
+               $('#twittsLeader').fadeOut("slow", function () {
+                  var previousAlert= new Object();
+                  previousAlert.message=$('#topTwittMessage').text();
+                  previousAlert.user=$('#topTwittUser').text();
+                  previousAlert.count=$('#topTwittCount').text();
 
+                                                                                                                                                                                    console.log(previousAlert);
+                  $('#twittsLeader').empty();
+                  $( "#twittsLeaderLabelTmpl").tmpl().appendTo('#twittsLeader');
+                  //$( "#twittTemplate" ).tmpl(alert).appendTo('#twittsLeader');
+                  $( "#twittTemplate" ).tmpl(alert).insertAfter('#twittsLeaderLabel');
+                  $('#twittsLeader').fadeIn("slow", function () {
+                      if(previousAlert.message.length > 0)
+                              $( "#twittTemplate" ).tmpl( previousAlert ).insertAfter('#historyLabel');
+                              //$( "#twittTemplate" ).tmpl( previousAlert ).prependTo('#twitts');
+                      //$('#twitts div:first-child').fadeIn("slow");
+                      $('#twittsLeader').listview('refresh');
+                      $('#twittshistory').listview('refresh');
+                  });
+               });
+            }
         }
         socket.onclose = function(){
             console.log("Socket Status: "+socket.readyState+' (Closed)');
@@ -103,7 +108,6 @@ $(function() {
     };
 
     var socket;
-    var previousAlert;
 
     function retryConnect(){
         while(socket==null || socket.readyState==3 ){
@@ -111,9 +115,6 @@ $(function() {
             connect();
         }
     }
-    retryConnect()
-});
-
 
 
 /*$(function() {
