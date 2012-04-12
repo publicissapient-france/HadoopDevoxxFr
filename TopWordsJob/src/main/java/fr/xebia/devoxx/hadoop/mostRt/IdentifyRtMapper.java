@@ -17,7 +17,7 @@ public class IdentifyRtMapper extends Mapper<LongWritable, Text, TwitterStream, 
         if (value.toString().indexOf("-") > 0 && value.toString().contains("RT")) {
             TwitterStream twitterStream = new TwitterStream();
 
-            Text retwittUser = new Text(value.toString().substring(0, value.toString().indexOf("-") - 2));
+            Text retwittUser = new Text(value.toString().substring(0, value.toString().indexOf("-") - 1));
 
             // Process message
             String rtToProcess = value.toString().substring(value.toString().indexOf("RT") + 3);
