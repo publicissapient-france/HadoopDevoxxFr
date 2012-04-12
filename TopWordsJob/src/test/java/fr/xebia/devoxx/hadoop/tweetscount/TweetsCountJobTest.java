@@ -15,7 +15,6 @@ public class TweetsCountJobTest {
     private TweetsCountReducer reducer;
     private MapReduceDriver driver;
 
-
     @Before
     public void setUp() {
         mapper = new TweetsCountMapper();

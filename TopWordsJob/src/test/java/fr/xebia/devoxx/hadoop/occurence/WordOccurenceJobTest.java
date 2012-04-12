@@ -9,11 +9,10 @@ import org.apache.hadoop.mrunit.mapreduce.MapReduceDriver;
 import org.junit.Before;
 import org.junit.Test;
 
-public class OccurenceJobTest {
+public class WordOccurenceJobTest {
     private WordOccurenceMapper mapper;
     private WordOccurenceReducer reducer;
     private MapReduceDriver driver;
-
 
     @Before
     public void setUp() {
