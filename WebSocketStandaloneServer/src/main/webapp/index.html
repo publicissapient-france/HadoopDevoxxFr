@@ -57,11 +57,11 @@ margin-top: 60px;
 		        <img src="https://api.twitter.com/1/users/profile_image?screen_name=${user}"/>
 		    </div>
 		    <div class="spanMessage">
-		        <label>${user}</label>
-		        ${message}
+		        <label id="topTwittUser">${user}</label>
+                <p id="topTwittMessage">${message}</p>
 		    </div>
 		    <div class="spanMiniRt">
-			    &nbsp;<br/><b>${count}</b><br/>&nbsp;
+			    &nbsp;<br/><p id="topTwittCount"><b>${count}</b></p><br/>&nbsp;
 		    </div>
 		</div>
 	</div>

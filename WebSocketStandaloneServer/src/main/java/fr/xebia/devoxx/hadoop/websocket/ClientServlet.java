@@ -11,35 +11,20 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 public class ClientServlet extends WebSocketServlet {
-    private final Set<ClientFeedWebSocket> webSockets = new CopyOnWriteArraySet<ClientFeedWebSocket>();
-
-    public final static BlockingQueue<String> MESSAGE_QUEUE = new ArrayBlockingQueue<String>(1000);
+    public static final Set<ClientFeedWebSocket> webSockets = new CopyOnWriteArraySet<ClientFeedWebSocket>();
 
     @Override
     public WebSocket doWebSocketConnect(HttpServletRequest httpServletRequest, String s) {
         return new ClientFeedWebSocket();
     }
 
-    private class ClientFeedWebSocket implements WebSocket.OnTextMessage {
+    public class ClientFeedWebSocket implements WebSocket.OnTextMessage {
+        public Connection connection;
+
+
         public void onOpen(Connection connection) {
+            this.connection = connection;
             webSockets.add(this);
-            while (true) {
-                String message = null;
-                try {
-                    message = MESSAGE_QUEUE.take();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    System.out.println("Message forwarded by ClientServlet : " + message);
-                    connection.sendMessage(message);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    System.out.println("Cleanning the mess");
-                    webSockets.remove(this);
-                    connection.close();
-                }
-            }
         }
 
         public void onMessage(String message) {
@@ -48,7 +33,6 @@ public class ClientServlet extends WebSocketServlet {
 
         public void onClose(int closeCode, String message) {
             webSockets.remove(this);
-            MESSAGE_QUEUE.clear();
         }
     }
 }

@@ -1,96 +1,95 @@
 <html>
-<head> 
-<meta charset="utf-8"> 
-<title>Hadoop at DevoxxFr</title> 
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<head>
+    <meta charset="utf-8">
+    <title>Hadoop at DevoxxFr</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Le styles --> 
-<link href="bootstrap/css/bootstrap.css" rel="stylesheet"> 
-<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet"> 
+    <!-- Le styles -->
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
-<!--[if lt IE 9]>
-<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]--> 
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-<style>
-body {
-margin-top: 60px;
-}
-</style>
+    <style>
+        body {
+        margin-top: 60px;
+        }
+    </style>
 
-</head> 
+</head>
 <body>
-<div class="navbar navbar-fixed-top"> 
-<div class="navbar-inner"> 
-<div class="container"> 
-<a class="brand" href="./index.html">Flume, Hadoop, Websockets and HTML5 in action</a>
-</div>
-</div>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="./index.html">Flume, Hadoop, Websockets and HTML5 in action</a>
+        </div>
+    </div>
 </div>
 <div class="row">
-<div class="span1">
-    <img src="img/twitter.png" width="200"/><br/>
-    <img src="img/flume.jpeg" width="200"/><br/>
-    <img src="img/mongo.png" width="200"/>
-</div>
-<div class="container span10">
-	<div id="twittsLeader">
-        <div class="row">
-            <div class="span5 offset3 wellTwitt">
-                <h5>Most RT in last 10 minutes</h5>
-                <div class="spanMini">
-                    <img src="https://api.twitter.com/1/users/profile_image?screen_name=@pLopezFr"/>
-                </div>
-                <div class="spanMessage">
-                    <label>@pLopezFr</label>
-                    Track and watch your favorite shows on http://followshows.com followshows.com via @followshows
-                </div>
-                <div class="spanMiniRt">
-                    &nbsp;<br/><b>10</b><br/>&nbsp;
+    <div class="span1">
+        <img src="img/twitter.png" width="200"/><br/>
+        <img src="img/flume.jpeg" width="200"/><br/>
+        <img src="img/mongo.png" width="200"/>
+    </div>
+    <div class="container span10">
+        <div id="twittsLeader" style="display: block; ">
+            <div class="row">
+                <div class="span5 offset3 wellTwitt">
+                    <div class="spanMini"><img src="https://api.twitter.com/1/users/profile_image?screen_name=@BFMT">
+                    </div>
+                    <div class="spanMessage"><label>@BFMT</label>
+
+                        <p id="topTwitt"> Syrie : trois civils ont été tués et une dizaine de personnes ont été arrêtées
+                            en dépit du cessez-le-feu (CNS). #Syrie</p></div>
+                    <div class="spanMiniRt">        &nbsp;<br><b>8</b><br>&nbsp;       </div>
                 </div>
             </div>
         </div>
-	</div>
-    <div id="twitts">
-        <h5>History</h5>
-        <div class="row">
-            <div class="span5 offset3 wellTwitt">
-                <div class="spanMini">
-                    <img src="https://api.twitter.com/1/users/profile_image?screen_name=@pLopezFr"/>
+        <div id="twitts">
+            <h5>History</h5>
+
+            <div class="row">
+                <div class="span5 offset3 wellTwitt">
+                    <div class="spanMini">
+                        <img src="https://api.twitter.com/1/users/profile_image?screen_name=@pLopezFr"/>
+                    </div>
+                    <div class="spanMessage">
+                        <label>@pLopezFr</label>
+                        Track and watch your favorite shows on http://followshows.com followshows.com via @followshows
+                    </div>
+                    <div class="spanMiniRt">
+                        &nbsp;<br/><b>4</b><br/>&nbsp;
+                    </div>
                 </div>
-                <div class="spanMessage">
-                    <label>@pLopezFr</label>
-                    Track and watch your favorite shows on http://followshows.com followshows.com via @followshows
-                </div>
-                <div class="spanMiniRt">
-                    &nbsp;<br/><b>4</b><br/>&nbsp;
+            </div>
+            <div class="row">
+                <div class="span5 offset3 wellTwitt">
+                    <div class="spanMini">
+                        <img src="https://api.twitter.com/1/users/profile_image?screen_name=@pLopezFr"/>
+                    </div>
+                    <div class="spanMessage">
+                        <label>@pLopezFr</label>
+                        Track and watch your favorite shows on http://followshows.com followshows.com via @followshows
+                    </div>
+                    <div class="spanMiniRt">
+                        &nbsp;<br/><b>4</b><br/>&nbsp;
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="span5 offset3 wellTwitt">
-                <div class="spanMini">
-                    <img src="https://api.twitter.com/1/users/profile_image?screen_name=@pLopezFr"/>
-                </div>
-                <div class="spanMessage">
-                    <label>@pLopezFr</label>
-                    Track and watch your favorite shows on http://followshows.com followshows.com via @followshows
-                </div>
-                <div class="spanMiniRt">
-                    &nbsp;<br/><b>4</b><br/>&nbsp;
-                </div>
-            </div>
-        </div>
-	</div>
-</div>
-<div class="span1">
-    <img src="img/hadoop.png" width="300"/> <br/>
-    <img src="img/html5.png" width="150"/><br/>
-    <img src="img/xebia.jpg" width="300"/>
-</div>
+    </div>
+    <div class="span1">
+        <img src="img/hadoop.png" width="300"/> <br/>
+        <img src="img/html5.png" width="150"/><br/>
+        <img src="img/xebia.jpg" width="300"/>
+    </div>
 </div>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
+<script type="text/javascript">var previousAlert=$('#topTwitt').text();
+                  console.log(previousAlert);</script>
 
 </body>
 </html>
