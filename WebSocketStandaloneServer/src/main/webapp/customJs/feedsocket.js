@@ -22,6 +22,10 @@
 
             if (alert.job === "occurence") {
                 plotTopWords(alert);
+            } else if (alert.job === "tweetscount") {
+                $("#tweetsCount .nbTweets").text(alert.count);
+                $("#tweetsCount .hashtag").text(alert.hashtag);
+                $("#tweetsCount").show();
             } else {
                $('#twittsLeader').fadeOut("slow", function () {
                   var previousAlert= new Object();

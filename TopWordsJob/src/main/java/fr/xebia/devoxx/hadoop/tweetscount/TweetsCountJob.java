@@ -1,7 +1,7 @@
-package fr.xebia.devoxx.hadoop.occurence;
+package fr.xebia.devoxx.hadoop.tweetscount;
 
 import fr.xebia.devoxx.hadoop.common.output.websocket.PushServerFormat;
-import fr.xebia.devoxx.hadoop.occurence.model.TwitterWordCount;
+import fr.xebia.devoxx.hadoop.tweetscount.model.TweetsCount;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.NullWritable;
@@ -10,20 +10,20 @@ import org.apache.hadoop.mapreduce.Job;
 
 import java.io.IOException;
 
-public class WordOccurenceJob extends Job {
-    public WordOccurenceJob(Configuration conf) throws IOException {
+public class TweetsCountJob extends Job {
+    public TweetsCountJob(Configuration conf) throws IOException {
         super(conf);
 
-        this.setMapperClass(WordOccurenceMapper.class);
+        this.setMapperClass(TweetsCountMapper.class);
         this.setMapOutputKeyClass(Text.class);
         this.setMapOutputValueClass(LongWritable.class);
 
-        this.setReducerClass(WordOccurenceReducer.class);
-        this.setOutputKeyClass(TwitterWordCount.class);
+        this.setReducerClass(TweetsCountReducer.class);
+        this.setOutputKeyClass(TweetsCount.class);
         this.setOutputValueClass(NullWritable.class);
 
         this.setOutputFormatClass(PushServerFormat.class);
 
-        this.setJarByClass(WordOccurenceJob.class);
+        this.setJarByClass(TweetsCountJob.class);
     }
 }

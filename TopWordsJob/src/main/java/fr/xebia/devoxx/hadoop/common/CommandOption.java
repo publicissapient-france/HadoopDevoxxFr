@@ -10,6 +10,7 @@ public class CommandOption {
     public static final String DATE_TO = "dateTo";
     public static final String INPUT_PATH = "inputPath";
     public static final String OUTPUT_PATH = "outputPath";
+    public static final String HASHTAG = "hashtag";
 
 
     private String useCase;
@@ -18,6 +19,7 @@ public class CommandOption {
     private String dateTo;
     private String inputPath;
     private String outputPath;
+    private String hashtag = "devoxxFr";
 
     public String getInputPath() {
         return inputPath;
@@ -71,5 +73,14 @@ public class CommandOption {
     @Option(name = "-" + WAIT_FOR_COMPLETION, usage = "lance le job en attendant la réponse ou pas")
     public void setWaitForCompletion(boolean waitForCompletion) {
         this.waitForCompletion = waitForCompletion;
+    }
+
+    public String getHashtag() {
+        return hashtag;
+    }
+
+    @Option(name = "-" + HASHTAG, usage = "hashtag")
+    public void setHashtag(String hashtag) {
+        this.hashtag = hashtag;
     }
 }

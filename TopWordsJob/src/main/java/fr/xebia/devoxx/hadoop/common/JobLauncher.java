@@ -3,6 +3,7 @@ package fr.xebia.devoxx.hadoop.common;
 import fr.xebia.devoxx.hadoop.mostRt.MostRtLaunch;
 import fr.xebia.devoxx.hadoop.occurence.OccurenceLaunch;
 import fr.xebia.devoxx.hadoop.sample.SampleLaunch;
+import fr.xebia.devoxx.hadoop.tweetscount.TweetsCountLaunch;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.util.Tool;
@@ -34,6 +35,7 @@ public class JobLauncher extends Configured implements Tool {
 
         configuration.set(CommandOption.INPUT_PATH, cmdLineOptions.getInputPath());
         configuration.set(CommandOption.OUTPUT_PATH, cmdLineOptions.getOutputPath());
+        configuration.set(CommandOption.HASHTAG, cmdLineOptions.getHashtag());
 
         Tool tool = null;
         if (cmdLineOptions.getUseCase().equals(SampleLaunch.USE_CASE)) {
@@ -42,8 +44,10 @@ public class JobLauncher extends Configured implements Tool {
             tool = new MostRtLaunch();
         } else if (cmdLineOptions.getUseCase().equals(OccurenceLaunch.USE_CASE)) {
             tool = new OccurenceLaunch();
+        } else if (cmdLineOptions.getUseCase().equals(TweetsCountLaunch.USE_CASE)) {
+            tool = new TweetsCountLaunch();
         } else {
-            // TODO Exception
+            throw new IllegalArgumentException("No map/reduce for use case " + cmdLineOptions.getUseCase());
         }
 
         ToolRunner.run(configuration, tool, otherArgs);
