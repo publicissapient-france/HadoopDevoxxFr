@@ -1,4 +1,3 @@
-$(function() {
 
  function connect(){
      var host = window.location.host;
@@ -32,11 +31,16 @@ $(function() {
 
                                                                                                                                                                                     console.log(previousAlert);
                   $('#twittsLeader').empty();
-                  $( "#twittTemplate" ).tmpl(alert).appendTo('#twittsLeader');
+                  $( "#twittsLeaderLabelTmpl").tmpl().appendTo('#twittsLeader');
+                  //$( "#twittTemplate" ).tmpl(alert).appendTo('#twittsLeader');
+                  $( "#twittTemplate" ).tmpl(alert).insertAfter('#twittsLeaderLabel');
                   $('#twittsLeader').fadeIn("slow", function () {
                       if(previousAlert.message.length > 0)
-                              $( "#twittTemplate" ).tmpl( previousAlert ).prependTo('#twitts');
-                      $('#twitts div:first-child').fadeIn("slow");
+                              $( "#twittTemplate" ).tmpl( previousAlert ).insertAfter('#historyLabel');
+                              //$( "#twittTemplate" ).tmpl( previousAlert ).prependTo('#twitts');
+                      //$('#twitts div:first-child').fadeIn("slow");
+                      $('#twittsLeader').listview('refresh');
+                      $('#twittshistory').listview('refresh');
                   });
                });
             }
@@ -111,9 +115,6 @@ $(function() {
             connect();
         }
     }
-    retryConnect()
-});
-
 
 
 /*$(function() {
