@@ -1,5 +1,21 @@
 package fr.xebia.devoxx.hadoop.flume;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import twitter4j.FilterQuery;
+import twitter4j.TwitterStream;
+import twitter4j.TwitterStreamFactory;
+import twitter4j.conf.ConfigurationBuilder;
+
 import com.cloudera.flume.conf.Context;
 import com.cloudera.flume.conf.SourceFactory.SourceBuilder;
 import com.cloudera.flume.core.Event;
@@ -7,19 +23,7 @@ import com.cloudera.flume.core.EventImpl;
 import com.cloudera.flume.core.EventSource;
 import com.cloudera.util.Pair;
 import com.google.common.base.Preconditions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import twitter4j.FilterQuery;
-import twitter4j.TwitterStream;
-import twitter4j.TwitterStreamFactory;
-import twitter4j.conf.ConfigurationBuilder;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
+import com.google.common.base.Throwables;
 
 
 /**
@@ -110,18 +114,29 @@ public class TwitterSource extends EventSource.Base {
         BlokingQueueListener listener = new BlokingQueueListener();
         listener.setEventQueue(eventQueue);
 
-        ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setOAuthConsumerKey("Y8EkAcIWMSMv1CnUZbyg")
-                .setOAuthConsumerSecret("QmxOeZOrMZi4NYI7pTVqNVKLvjzLFOzu4lc133lixaM")
-                .setOAuthAccessToken("18357527-LZGlcZkYzL2pUSExqeJh9xMUOWv67gkiBiGuCvTNs")
-                .setOAuthAccessTokenSecret("bdEpIYefk7BgQCTKpdW0vWe6Q2dIJZ9nIGBCcZ90WNc");
-
-
+        ConfigurationBuilder cb = readConfiguration();
         TwitterStream twitterStream = new TwitterStreamFactory(cb.build()).getInstance();
         twitterStream.addListener(listener);
 
         return twitterStream;
     }
+
+	private ConfigurationBuilder readConfiguration() {
+		final Properties props = new Properties();
+		try {
+			props.load(TwitterSource.class.getResourceAsStream("/oauth.properties"));
+		} catch (IOException e) {
+			LOG.error("Unable to access the /oauth.properties file!");
+			Throwables.propagate(e);
+		}
+		
+		ConfigurationBuilder cb = new ConfigurationBuilder();
+        cb.setOAuthConsumerKey(props.getProperty("consumer.key"))
+                .setOAuthConsumerSecret(props.getProperty("consumer.secret"))
+                .setOAuthAccessToken(props.getProperty("access.token"))
+                .setOAuthAccessTokenSecret(props.getProperty("access.token.secret"));
+		return cb;
+	}
 
     private static boolean isNumericalArgument(String argument) {
         String args[] = argument.split(",");
