@@ -132,9 +132,9 @@ public class TwitterSource extends EventSource.Base {
 		
 		ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setOAuthConsumerKey(props.getProperty("consumer.key"))
-                .setOAuthConsumerSecret("consumer.secret")
-                .setOAuthAccessToken("access.token")
-                .setOAuthAccessTokenSecret("access.token.secret");
+                .setOAuthConsumerSecret(props.getProperty("consumer.secret"))
+                .setOAuthAccessToken(props.getProperty("access.token"))
+                .setOAuthAccessTokenSecret(props.getProperty("access.token.secret"));
 		return cb;
 	}
 
