@@ -1,5 +1,6 @@
 package fr.xebia.devoxx.hadoop.tweetscount;
 
+import fr.xebia.devoxx.hadoop.tweetscount.model.TweetsCount;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;

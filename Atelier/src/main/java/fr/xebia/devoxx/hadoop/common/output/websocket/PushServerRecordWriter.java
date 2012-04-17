@@ -4,6 +4,8 @@ import fr.xebia.devoxx.hadoop.common.output.utils.TweetsCountSerializer;
 import fr.xebia.devoxx.hadoop.common.output.utils.TwitterStreamCountSerializer;
 import fr.xebia.devoxx.hadoop.common.output.utils.TwitterWordCountSerializer;
 import fr.xebia.devoxx.hadoop.mostRt.model.TwitterStreamCount;
+import fr.xebia.devoxx.hadoop.occurence.model.TwitterWordCount;
+import fr.xebia.devoxx.hadoop.tweetscount.model.TweetsCount;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.mapreduce.RecordWriter;
 import org.apache.hadoop.mapreduce.TaskAttemptContext;

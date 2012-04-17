@@ -1,6 +1,7 @@
 package fr.xebia.devoxx.hadoop.occurence;
 
 
+import fr.xebia.devoxx.hadoop.occurence.model.TwitterWordCount;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;

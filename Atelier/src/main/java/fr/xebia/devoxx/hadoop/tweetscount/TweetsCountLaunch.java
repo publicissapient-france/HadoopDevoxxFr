@@ -22,7 +22,25 @@ public class TweetsCountLaunch extends Configured implements Tool {
 
     public int run(String[] args) throws Exception {
 
-        // TODO
+        Configuration conf = getConf();
+
+        // Initiliaze state
+        FileSystem dfs = FileSystem.get(conf);
+        dfs.delete(new Path(conf.get(CommandOption.OUTPUT_PATH)), true);
+
+        Properties props = new Properties();
+        props.load(TweetsCountLaunch.class.getResourceAsStream("/common.properties"));
+        conf.set("pushServerUrl", props.getProperty("pushServerUrl"));
+
+        Job job = new TweetsCountJob(conf);
+
+        job.setJobName("Tweets count job");
+
+        FileInputFormat.addInputPath(job, new Path(conf.get(CommandOption.INPUT_PATH)));
+        FileOutputFormat.setOutputPath(job, new Path(conf.get(CommandOption.OUTPUT_PATH)));
+
+        job.waitForCompletion(true);
+
 
         return 0;
     }

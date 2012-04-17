@@ -2,7 +2,6 @@ package fr.xebia.devoxx.hadoop.common.output.utils;
 
 import fr.xebia.devoxx.hadoop.mostRt.model.TwitterStreamCount;
 import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
 
